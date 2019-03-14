@@ -14,41 +14,35 @@
 
 package v1
 
-// Namespace defines information about OPM namespaces.
+// Namespace is the go struct for an OPM namespace.
 type Namespace struct {
-	// Name defines the name of the namespace.
-	Name string `json:"name"`
+	Name         string          `json:"name"`
+	Status       string          `json:"status"`
+	Projects     QuotaDescriptor `json:"projects"`
+	Repositories QuotaDescriptor `json:"repositories"`
+	Storage      QuotaDescriptor `json:"storage"`
+	Labels       Labels          `json:"labels,omitempty"`
+}
 
-	// Projects defines information about projects in the namespace.
-	Projects struct {
-		// Quota defines the total amount of projects allowed in the namespace.
-		Quota uint64 `json:"quota"`
+// NamespaceCreate is the go struct for creating OPM namespaces.
+type NamespaceCreate struct {
+	Labels Labels `json:"labels,omitempty"`
+}
 
-		// Count defines the total amount of projects currently in the
-		// namespace.
-		Count uint64 `json:"count"`
-	} `json:"projects"`
+// NamespaceList is the go struct for a list of OPM namespaces.
+type NamespaceList struct {
+	Namespaces []Namespace `json:"namespaces"`
+}
 
-	// Repositories defines information about repositories in the namespace.
-	Repositories struct {
-		// Quota defines the total amount of repositories allowed in the
-		// namespace.
-		Quota uint64 `json:"quota"`
+// QuotaDescriptor is a struct that contains data about resource usage and
+// limits.
+type QuotaDescriptor struct {
+	Quota uint64 `json:"quota"`
+	Used  uint64 `json:"used"`
+}
 
-		// Count defines the total amount of repositories currently in the
-		// namespace.
-		Count uint64 `json:"count"`
-	} `json:"repositories"`
-
-	// Storage defines storage information about namespace.
-	Storage struct {
-		// Quota defines the total storage allocated to the namespace.
-		Quota uint64 `json:"quota,omitempty"`
-
-		// Used defines the total storage used by the namespace in bytes.
-		Used uint64 `json:"used"`
-	} `json:"storage"`
-
-	// Labels contains arbitrary metadata for the namespace.
-	Labels map[string]string `json:"labels,omitempty"`
+// Labels is a struct that contains data about labels.
+type Labels struct {
+	Provider map[string]string `json:"provider,omitempty"`
+	Consumer map[string]string `json:"consumer,omitempty"`
 }
