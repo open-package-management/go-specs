@@ -20,17 +20,19 @@ import (
 
 // Namespace is the go struct for an OPM namespace.
 type Namespace struct {
-	Name    string    `json:"name"`
-	Status  string    `json:"status"`
-	Created time.Time `json:"created"`
-	Deleted time.Time `json:"deleted,omitempty"`
-	Quotas  struct {
-		Projects     QuotaDescriptor `json:"projects"`
-		Repositories QuotaDescriptor `json:"repositories"`
-		Storage      QuotaDescriptor `json:"storage"`
-	} `json:"quotas"`
+	Name        string            `json:"name"`
+	Status      string            `json:"status"`
+	Created     time.Time         `json:"created"`
+	Deleted     time.Time         `json:"deleted,omitempty"`
+	Quotas      NamespaceQuotas   `json:"quotas"`
 	Labels      map[string]string `json:"labels,omitempty"`
 	Annotations map[string]string `json:"annotations"`
+}
+
+type NamespaceQuotas struct {
+	Projects     QuotaDescriptor `json:"projects"`
+	Repositories QuotaDescriptor `json:"repositories"`
+	Storage      QuotaDescriptor `json:"storage"`
 }
 
 // NamespaceCreate is the go struct for creating OPM namespaces.
