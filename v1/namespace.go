@@ -23,12 +23,12 @@ type Namespace struct {
 		Repositories QuotaDescriptor `json:"repositories"`
 		Storage      QuotaDescriptor `json:"storage"`
 	} `json:"quotas"`
-	Labels Labels `json:"labels,omitempty"`
+	Labels map[string]string `json:"labels,omitempty"`
 }
 
 // NamespaceCreate is the go struct for creating OPM namespaces.
 type NamespaceCreate struct {
-	Labels Labels `json:"labels,omitempty"`
+	Labels map[string]string `json:"labels,omitempty"`
 }
 
 // NamespaceList is the go struct for a list of OPM namespaces.
@@ -41,10 +41,4 @@ type NamespaceList struct {
 type QuotaDescriptor struct {
 	Limit uint64 `json:"limit"`
 	Used  uint64 `json:"used"`
-}
-
-// Labels is a struct that contains data about labels.
-type Labels struct {
-	Provider map[string]string `json:"provider,omitempty"`
-	Consumer map[string]string `json:"consumer,omitempty"`
 }
