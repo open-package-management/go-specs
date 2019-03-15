@@ -16,12 +16,14 @@ package v1
 
 // Namespace is the go struct for an OPM namespace.
 type Namespace struct {
-	Name         string          `json:"name"`
-	Status       string          `json:"status"`
-	Projects     QuotaDescriptor `json:"projects"`
-	Repositories QuotaDescriptor `json:"repositories"`
-	Storage      QuotaDescriptor `json:"storage"`
-	Labels       Labels          `json:"labels,omitempty"`
+	Name   string `json:"name"`
+	Status string `json:"status"`
+	Quotas struct {
+		Projects     QuotaDescriptor `json:"projects"`
+		Repositories QuotaDescriptor `json:"repositories"`
+		Storage      QuotaDescriptor `json:"storage"`
+	} `json:"quotas"`
+	Labels Labels `json:"labels,omitempty"`
 }
 
 // NamespaceCreate is the go struct for creating OPM namespaces.
@@ -37,7 +39,7 @@ type NamespaceList struct {
 // QuotaDescriptor is a struct that contains data about resource usage and
 // limits.
 type QuotaDescriptor struct {
-	Quota uint64 `json:"quota"`
+	Limit uint64 `json:"limit"`
 	Used  uint64 `json:"used"`
 }
 
